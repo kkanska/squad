@@ -1,0 +1,23 @@
+version: "2"
+services:
+  web:
+    container_name: "gate"
+    build: .
+    ports:
+     - "4000:4000"
+    volumes:
+     - .:/code
+    command: "python3 server.py"
+    restart: "on-failure"
+    networks: 
+      - backend
+    restart: "on-failure"
+    external_links: 
+      - matches:matches
+      - auth:auth
+      - users:users
+
+
+networks:
+  backend:
+    external: true

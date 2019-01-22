@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  app:
+    container_name: "auth"
+    build: .
+    ports:
+     - "5001:5000"
+    command: run --host 0.0.0.0
+    volumes: 
+     - ./storage:/instance
+     
+    networks:
+     - backend
+    restart: "on-failure"
+    external_links:
+     - users
+
+networks:
+  backend:
+    external: true

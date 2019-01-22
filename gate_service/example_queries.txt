@@ -1,0 +1,108 @@
+query Query {
+  authorizeUser(email: "piotrek@gmail.com", hash: "p") {
+    login
+    email
+    userID
+    profile {
+      avatarURL
+      description
+    }
+  }
+}
+
+query Query {
+  settings {
+    getSettings(user: {userID: 1}) {
+      defaultDiscipline {
+        name
+      }
+      defaultLocation {
+        lat
+        lng
+      }
+      defaultRange
+    }
+  }
+}
+
+query Query {
+  matches {
+    getActiveMatches(user: {userID: 1}) {
+      matchID
+      title
+      location {
+        lat
+        lng
+      }
+      author {
+        login
+        profile {
+          avatarURL
+        }
+      }
+      players {
+        login
+        profile {
+          avatarURL
+        }
+      }
+      invited {
+        login
+      }
+      date {
+        timestamp
+      }
+    }
+  }
+}
+
+query Query {
+    matches {
+      searchMatches(location: {lng: 52.215, lat: 20.97}) {
+        matchID
+        title
+        location {
+          lat
+          lng
+        }
+        author {
+          login
+          profile {
+            avatarURL
+          }
+        }
+        players {
+          login
+          profile {
+            avatarURL
+          }
+        }
+        invited {
+          login
+        }
+        date {
+          timestamp
+        }
+      }
+    }
+}
+
+mutation Mutation {
+  actions {
+    registerUser(email: "piotrek@example.com", login: "piotrek", hash: "psswrd") {
+      user {
+        login
+        userID
+      }
+    }
+  }
+}
+
+mutation Mutation {
+  actions {
+    joinMatch(user: {userID: 1}, matchID: 1) {
+      message
+      isOK
+    }
+  }
+}
