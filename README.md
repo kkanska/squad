@@ -1,7 +1,7 @@
 # Squad
 
 
-![Squad logo](https://gitlab.com/squad.dev/squad/raw/master/static/squad_logo.png)
+![Squad logo](https://github.com/kkanska/squad/blob/master/static/squad_logo.png)
 
 Projekt ma na celu stworzenie aplikacji mobilnej ułatwiającej użytkownikom znajdowanie kompanów do gry w piłkę nożną i inne dyscypliny sportowe.
 <br><br>
