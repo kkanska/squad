@@ -123,3 +123,30 @@ class InvitesList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from .forms import GenerateRandomMatchesForm
+from .tasks import create_random_matches
+from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
+from django.contrib import messages
+from django.shortcuts import redirect
+
+class NewMatchesList(ListView):
+    template_name = 'matches/new_matches_list.html'
+    model = Match
+    queryset = Match.objects.all().order_by('-date', '-location')
+
+
+class GenerateRandomMatchesView(FormView):
+    template_name = 'matches/generate_random_matches.html'
+    form_class = GenerateRandomMatchesForm
+
+    def form_valid(self, form):
+        print("Form validation in generate random match view -------------------------------------")
+        total = form.cleaned_data.get('total')
+        print("total = " + str(total) + "--------------------------------------------")
+        for num in range(total):
+            create_random_matches.delay(matches_number=1) # dzięki temu celery uruchamia tą funkcję w tle i każdy worker dodaje po 1 meczu
+        messages.success(self.request, 'We are generating your random matches! Wait a moment and refresh this page.')
+        return redirect('new_matches_list')
