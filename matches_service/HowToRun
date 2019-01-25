@@ -1,3 +1,2 @@
 sudo docker-compose build
-sudo docker-compose scale worker=5
-sudo docker-compose up
+sudo docker-compose up --scale worker=5
