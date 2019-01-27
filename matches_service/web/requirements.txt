@@ -4,3 +4,7 @@ djangorestframework
 markdown
 django-filter
 Celery
+extras
+bootstrap3_datetime
+pytz
+django-mathfilters

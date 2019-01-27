@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django.contrib.gis',
+    'bootstrap3_datetime',
+    'mathfilters'
     # 'djcelery', #nowo dodane
     # 'kombu.transport.django' #nowo dodane
 ]
