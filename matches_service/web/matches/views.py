@@ -12,6 +12,14 @@ from matches.serializers import MatchesSerializer, InviteSerializer
 
 import datetime
 
+from .forms import GenerateRandomMatchesForm
+from .tasks import create_match
+from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
+from django.contrib import messages
+from django.shortcuts import redirect
+
+import random
 
 class MatchesList(APIView):
     def get(self, request, format=None):
@@ -124,22 +132,11 @@ class InvitesList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-from .forms import GenerateRandomMatchesForm
-from .tasks import create_random_matches, create_match
-from django.views.generic.edit import FormView
-from django.views.generic.list import ListView
-from django.contrib import messages
-from django.shortcuts import redirect
-
-from datetime import timedelta, datetime
-import random
-
 class NewMatchesList(ListView):
     template_name = 'matches/new_matches_list.html'
     model = Match
     paginate_by = 10
-    queryset = Match.objects.all().order_by('-date', '-location')
+    queryset = Match.objects.all().order_by('date', '-location')
 
 
 # from dateutil.parser import parse
@@ -165,7 +162,7 @@ class GenerateRandomMatchesView(FormView):
         all_matches = []
         for day_num in range(int((end_date - start_date).days) + 1):
             for time in range(int((end_hour - start_hour)*60/match_length)):
-                match_date = start_date + timedelta(day_num)
+                match_date = start_date + datetime.timedelta(day_num)
                 match_start = start_hour*60 + time*match_length
                 match_end = match_start + match_length
                 if len(players) > 12:
@@ -176,7 +173,7 @@ class GenerateRandomMatchesView(FormView):
                 all_matches.append({
                     "point": (playground_latitude, playground_longitude),
                     "author_id": author_id,
-                    "date": datetime.combine(match_date, datetime.min.time()),
+                    "date": datetime.datetime.combine(match_date, datetime.datetime.min.time()),
                     "minute_start": match_start,
                     "minute_end": match_end,
                     "squad": match_squad,
