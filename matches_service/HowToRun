@@ -2,4 +2,6 @@ migracje : sudo docker-compose run web python manage.py makemigrations --name ho
 edytowanie bazy danych : sudo docker exec -it postgis psql -U postgres
 
 sudo docker-compose build
+# jeśli wystąpi taka potrzeba to także ...
+sudo docker network create backend
 sudo docker-compose up --scale worker=5

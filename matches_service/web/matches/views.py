@@ -181,6 +181,8 @@ class GenerateRandomMatchesView(FormView):
         for match in all_matches:
             create_match.delay(match)
 
+        messages.success(self.request, 'Our workers are adding your new matches to our database using RabbitMQ! Please wait a moment and refresh this page. :-D ')
+
         return redirect('new_matches_list')
 
 
