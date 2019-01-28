@@ -8,3 +8,4 @@ extras
 bootstrap3_datetime
 pytz
 django-mathfilters
+architect

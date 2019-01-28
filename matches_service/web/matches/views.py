@@ -132,14 +132,13 @@ class InvitesList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class NewMatchesList(ListView):
     template_name = 'matches/new_matches_list.html'
     model = Match
     paginate_by = 10
-    queryset = Match.objects.all().order_by('date', '-location')
+    queryset = Match.objects.all().order_by('date', 'minute_start', 'minute_end', '-location')
 
-
-# from dateutil.parser import parse
 
 class GenerateRandomMatchesView(FormView):
     template_name = 'matches/generate_random_matches.html'
