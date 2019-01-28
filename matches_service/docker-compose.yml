@@ -32,15 +32,12 @@ services:
     ports:
       - "5672:5672" # dla menadzera
       - "15672:15672" # dla serwera
-#      - "15672:15672"
 
 
   # Celery worker
   worker:
     build: ./web
     command: celery -A web worker --loglevel=info
-    #command: sh ./run_celery.sh
-    #command: ls
     volumes:
       - ./web/:/code
     links:
@@ -68,6 +65,12 @@ services:
       - db
     image: matches
     restart: on-failure
+
+  add_architect:
+    build: ./web
+    command: >
+      sh -c "export DJANGO_SETTINGS_MODULE=web.settings &&
+             architect partition --module matches.models"
 
 networks:
   backend:
