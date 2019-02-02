@@ -140,8 +140,8 @@ class NewMatchesList(ListView):
     queryset = Match.objects.all().order_by('date', 'minute_start', 'minute_end', '-location')
 
 
-class GenerateRandomMatchesView(FormView):
-    template_name = 'matches/generate_random_matches.html'
+class GenerateNewMatchesView(FormView):
+    template_name = 'matches/generate_new_matches.html'
     form_class = GenerateRandomMatchesForm
 
     def form_valid(self, form):

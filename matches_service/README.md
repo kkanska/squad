@@ -1,3 +1,21 @@
+## Na potrzeby projektu na przedmiot "JNP3 : Projektowanie wysokowydajnych serwisów webowych", projekt został wzbogacony o możliwość generowania meczy z wyborem:
+ - współrzędnych boiska
+ - id autora wprowadzającego informacje do systemu
+ - godziny rozpoczęcia i zakończenia rozgrywek
+ - długości pojedyńczego meczu
+ - daty rozpoczęcia i zakończenia rozgrywek
+ - listy id graczy oddzielonych spacjami lub przecinkami
+ - dyscypliny
+ 
+#### Aplikacja korzysta z kolejki RabbitMQ oraz Celery workerów do dodawania pojedyńczych meczy do bazy danych.
+Dzięki temu użytkownik aplikacji nie musi czekać, aż zadanie zostanie wykonane. Na stronie jest on informowany że 
+workerzy wkrótce dodadzą nowe mecze do bazy danych.
+
+#### Aplikacja używa zpartycjonowanej tabeli trzymającej informacje o meczech.
+##### Do partycjonowania został wykorzystane narzędzie *Architect*
+Tabela **Match** podzielona została na 6 części, każda z nich trzymająca mecze zaczynające się w godzinach z 
+przedziału <4 * num - 4, 4 * num) gdzie num to numer części.
+
 ## POST /matches/
 ```
     {
