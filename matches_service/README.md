@@ -16,6 +16,12 @@ workerzy wkrótce dodadzą nowe mecze do bazy danych.
 Tabela **Match** podzielona została na 6 części, każda z nich trzymająca mecze zaczynające się w godzinach z 
 przedziału <4 * num - 4, 4 * num) gdzie num to numer części.
 
+## Sposób uruchamiania (przykładowo dla 5 workerów): 
+```
+    sudo docker-compose build
+    sudo docker-compose up --scale worker=5
+```
+
 ## POST /matches/
 ```
     {
