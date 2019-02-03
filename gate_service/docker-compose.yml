@@ -5,6 +5,8 @@ services:
     build: .
     ports:
      - "4000:4000"
+     - "4001:4000"
+     - "4002:4000"
     volumes:
      - .:/code
     command: "python3 server.py"

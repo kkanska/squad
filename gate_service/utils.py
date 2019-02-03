@@ -4,8 +4,6 @@ import json
 import config
 from models import *
 
-import fake_backend
-
 
 def str_timestamp():
     return str(time.time())
