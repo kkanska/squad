@@ -1,4 +1,4 @@
-![Squad logo](https://gitlab.com/squad.dev/squad/raw/master/static/squad_logo.png)
+![Squad logo](https://github.com/kkanska/squad/blob/master/static/squad_logo.png)
 
 
 # Specyfikacja projektu
@@ -152,15 +152,3 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
     1. Dostarczenie testów jednostkowych
 10. Licencjonowanie
     1. MIT
-
-
-
-
-```
-Version: #2
-Last-modif: 2018/04/17 08:52
-Author: Piotr Aleksander Styczyński
-
-
-Commit-hash: 9936e843887bf7a05a949bbf2ca0a688ab705b01
-```
