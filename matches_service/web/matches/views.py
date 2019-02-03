@@ -141,7 +141,7 @@ class NewMatchesList(ListView):
 
 
 class GenerateNewMatchesView(FormView):
-    template_name = 'matches/generate_new_matches.html'
+    template_name = 'matches/add_new_matches.html'
     form_class = GenerateRandomMatchesForm
 
     def form_valid(self, form):
@@ -186,6 +186,6 @@ class GenerateNewMatchesView(FormView):
         return redirect('new_matches_list')
 
 
-def clear_db(request):
+def remove_matches(request):
     Match.objects.all().delete()
     return redirect('new_matches_list')

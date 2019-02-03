@@ -10,8 +10,8 @@ class MyGeoForm(gis_forms.Form):
 
 
 class GenerateRandomMatchesForm(forms.Form):
-    playground_latitude = forms.FloatField(min_value=-90, max_value=90)
-    playground_longitude = forms.FloatField(min_value=-180, max_value=180)
+    playground_latitude = forms.FloatField(min_value=-90.0, max_value=90.0)
+    playground_longitude = forms.FloatField(min_value=-180.0, max_value=180.0)
     author_id = forms.IntegerField()
     playing_from_hour = forms.IntegerField(min_value=0, max_value=24, initial=1)
     playing_to_hour = forms.IntegerField(min_value=0, max_value=24, initial=2)
