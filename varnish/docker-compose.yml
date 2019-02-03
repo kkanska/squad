@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  app:
+    container_name: "loadbalancer"
+    build: .
+    ports:
+     - "80:80"
+    volumes: 
+     - ./config:/usr/local/etc/varnish
+    networks:
+     - backend
+    restart: "on-failure"
+    external_links:
+     - gate:gate
+
+networks:
+  backend:
+    external: true
