@@ -1,0 +1,5 @@
+migracje : sudo docker-compose run web python manage.py makemigrations --name hours_start_end
+edytowanie bazy danych : sudo docker exec -it postgis psql -U postgres
+
+sudo docker-compose build
+sudo docker-compose up --scale worker=5

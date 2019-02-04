@@ -2,12 +2,12 @@ version: "2"
 
 services:
   db:
+    container_name: "postgis"
     image: mdillon/postgis
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
-
-  web:
+  web: &web
     container_name: "matches"
     build: ./web
     command: python3 manage.py runserver 0.0.0.0:8000
@@ -17,12 +17,36 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - rabbitmq
+      - worker
     image: matches
     restart: "on-failure"
 
     networks:
       - default
       - backend
+
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # dla menadzera
+      - "15672:15672" # dla serwera
+#      - "15672:15672"
+
+
+  # Celery worker
+  worker:
+    build: ./web
+    command: celery -A web worker --loglevel=info
+    #command: sh ./run_celery.sh
+    #command: ls
+    volumes:
+      - ./web/:/code
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
   
 #development containers
   migrate:
