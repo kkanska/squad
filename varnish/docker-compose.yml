@@ -2,19 +2,19 @@ version: "2"
 
 services:
   app:
-    container_name: "auth"
+    container_name: "loadbalancer"
     build: .
     ports:
-     - "5000:5000"
-    command: run --host 0.0.0.0
+     - "80:80"
     volumes: 
-     - ./storage:/instance
-     
+     - ./config:/usr/local/etc/varnish
     networks:
      - backend
     restart: "on-failure"
     external_links:
-     - users
+     - gate1:gateservice_web_1
+     - gate2:gateservice_web_2
+     - gate3:gateservice_web_3
 
 networks:
   backend:

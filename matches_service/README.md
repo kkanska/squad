@@ -1,3 +1,5 @@
+# Matches Microservice
+
 ## Na potrzeby projektu na przedmiot "JNP3 : Projektowanie wysokowydajnych serwisów webowych", projekt został wzbogacony o możliwość generowania meczy z wyborem:
  - współrzędnych boiska
  - id autora wprowadzającego informacje do systemu
@@ -22,7 +24,8 @@ przedziału <4 * num - 4, 4 * num) gdzie num to numer części.
     sudo docker-compose up --scale worker=5
 ```
 
-## POST /matches/
+## API
+### POST /matches/
 ```
     {
             "location": "SRID=4326;POINT (21.04090086919246 53.81391628442898)",
@@ -36,7 +39,7 @@ przedziału <4 * num - 4, 4 * num) gdzie num to numer części.
             ]
     }
 ```
-## GET /matches/?lat={latitide}&lng={longitude}&radius={radius_in_meters}&author={user_id}&date={string_yyyy-mm-dd}[&player={player_id}]
+### GET /matches/?lat={latitide}&lng={longitude}&radius={radius_in_meters}&author={user_id}&date={string_yyyy-mm-dd}[&player={player_id}]
 ```
     [
         {
@@ -63,7 +66,7 @@ przedziału <4 * num - 4, 4 * num) gdzie num to numer części.
         }
     ]
 ```
-## PATCH /matches/
+### PATCH /matches/
 ```
     {
     "id":2,
@@ -92,8 +95,8 @@ or
     }
 ```
 
-## GET /matches/<match_id>
+### GET /matches/<match_id>
 
-## PUT /matches/<match_id>
+### PUT /matches/<match_id>
 
-## DELETE /matches/<match_id>
+### DELETE /matches/<match_id>
