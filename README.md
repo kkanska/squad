@@ -15,12 +15,3 @@ Użytkownik ma dostęp do listy meczy, w których zadeklarował udział.
 Dla każdego meczu utworzony jest osobny czat.
 Jeżeli użytkownik zaznaczy, że szuka meczu, to dostaje powiadomienie o każdym nowo utworzonym meczu w jego okolicy.
 Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualności, kultury meczu itd., ale nie umiejętności).
-
-```
-Version: #1
-Last-modif: 2018/03/28 13:04
-Author: kkanska1
-
-
-Commit-hash: 81d08827512da346f51546aa71fac88cc929f064
-```

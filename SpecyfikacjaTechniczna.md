@@ -1,4 +1,4 @@
-![Squad logo](https://gitlab.com/squad.dev/squad/raw/master/static/squad_logo.png)
+![Squad logo](https://github.com/kkanska/squad/blob/master/static/squad_logo.png)
 
 Projekt ma na celu stworzenie aplikacji mobilnej ułatwiającej użytkownikom znajdowanie kompanów do gry w piłkę nożną i inne dyscypliny sportowe.
 
@@ -18,12 +18,12 @@ Projekt ma na celu stworzenie aplikacji mobilnej ułatwiającej użytkownikom zn
 
 ## Architektura systemu
 
-![Components diagram](https://gitlab.com/squad.dev/squad/raw/master/static/architektura.png)
+![Components diagram](https://github.com/kkanska/squad/blob/master/static/architektura.png)
 
 System ma typową *architekturę mikroserwisową*.
 
 Definicje:
-  * sieć mikroserwisowa - wewnętrzna sieć połączeń pomiędzy mikroserwisami a bramą, do której uzytkownik ma jedynie dostęp pośredni poprzez bramę
+  * sieć mikroserwisowa - wewnętrzna sieć połączeń pomiędzy mikroserwisami a bramą, do której użytkownik ma jedynie dostęp pośredni poprzez bramę
 
 Każdy mikroserwis posiada osobną bazę danych dotyczącą funkcjonalości jaką ten serwis oferuje.
 
@@ -60,22 +60,22 @@ Serwis odpowiadający za obsługę żądań bramy związanych z interakcją uży
 
 Serwis odpowiadający za obsługę żądań bramy związanych z zarządzaniem danymi użytkowników w serwisie (*zob. specyfikacja sek. USER*)
 
-* Serwis posiada niezależną bazę danych MongoDB przechowującą dane o użytkownikach (dane o profilach i wszystkie inne wymagane do realizacji zadań zgodnych ze specyfikacją)
+* Serwis posiada niezależną bazę danych Redis przechowującą dane o użytkownikach (dane o profilach i wszystkie inne wymagane do realizacji zadań zgodnych ze specyfikacją)
 
-![Detailed components diagram](https://gitlab.com/squad.dev/squad/raw/master/static/architektura_detale.png)
+![Detailed components diagram](https://github.com/kkanska/squad/blob/master/static/architektura_detale.png)
 
 
 ## API
 
 ### GATE
-[Repozytorium](https://gitlab.com/squad.dev/gate_service/blob/master/API%201.1.md)
+[Repozytorium](https://github.com/kkanska/squad/tree/master/gate_service/README.md)
 
 ### AUTH
-[Repozytorium](https://gitlab.com/squad.dev/auth/blob/master/README.md)
+[Repozytorium](https://github.com/kkanska/squad/tree/master/auth_service/README.md)
 
 ### MATCH
-[Repozytorium](https://gitlab.com/squad.dev/matches_service/blob/master/README.md)
+[Repozytorium](https://github.com/kkanska/squad/tree/master/matches_service/README.md)
 
 ### USER
-*Jeszcze nie zaimplementowane*
+[Repozytorium](https://github.com/kkanska/squad/tree/master/users_service/README.md)
 

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+    <h2>Matches List</h2>
+
+    <table>
+        {% if object_list %}
+            <tr>
+                <td>Author_id</td>
+                <td>Date</td>
+                <td>Starting time</td>
+                <td>Ending time</td>
+                <td>Discipline</td>
+                <td>Location coordinates</td>
+                <td>Player ids</td>
+            </tr>
+        {% endif %}
+        {% for match in object_list %}
+            <tr>
+                <td>{{ match.author_id }}</td>
+                <td>{{ match.date }}</td>
+                <td>{% if match.minute_start|intdiv:60 < 10 %}0{% endif %}{{ match.minute_start|intdiv:60}} :
+                    {% if match.minute_start|mod:60 < 10 %}0{% endif %}{{ match.minute_start|mod:60}}
+                </td>
+                <td>{% if match.minute_end|intdiv:60 < 10 %}0{% endif %}{{ match.minute_end|intdiv:60}} :
+                    {% if match.minute_end|mod:60 < 10 %}0{% endif %}{{ match.minute_end|mod:60}}
+                </td>
+                <td>{{ match.get_discipline_display }}</td>
+                <td>({{ match.location.x }} , {{ match.location.y }})</td>
+                <td>[
+                    {% for player_id in match.players %}
+                        {% if forloop.first %}
+                            {{ player_id }}
+                        {% else %}
+                            , {{ player_id }}
+                        {% endif %}
+                    {% endfor %}]
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="/page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,4 +1,4 @@
-![Squad logo](https://gitlab.com/squad.dev/squad/raw/master/static/squad_logo.png)
+![Squad logo](https://github.com/kkanska/squad/blob/master/static/squad_logo.png)
 
 
 # Specyfikacja projektu
@@ -127,7 +127,6 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
 # Szegółowe przypadki użycia
 
 <table>
-
     <tbody>
         <th><b>LOGIN_FB</b></th>
         <tr>
@@ -171,7 +170,8 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
             </td>
         </tr>
     </tbody>
-    
+</table>
+<table>
     <tbody>
         <th><b>REJESTR_EMAIL</b></th>
         <tr>
@@ -221,7 +221,8 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
             </td>
         </tr>
     </tbody>
-    
+</table>
+<table>
     <tbody>
         <th><b>LOGIN_EMAIL</b></th>
         <tr>
@@ -281,7 +282,8 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
             </td>
         </tr>
     </tbody>
-    
+</table>
+<table>
     <tbody>
         <th><b>LOGIN_EMAIL_FORGET</b></th>
         <tr>
@@ -363,76 +365,67 @@ Po rozegranym meczu gracze oceniają pozostałych graczy (pod kątem punktualno�
             </td>
         </tr>
     </tbody>
-    
-<tbody>
-    <th><b>MATCH_EDIT</b></th>
-    <tr>
-        <td>Nazwa</td>
-        <td>
-            Edycja meczu przez użytkownika
-        </td>
-    </tr>
-    <tr>
-        <td>Krótki opis</td>
-        <td>
-            Użytkownik edytuje już utworzony mecz. Może zmienić jego parametry jak określone w punkcie MATCH.EDIT.1
-        </td>
-    </tr>
-    <tr>
-        <td>Aktorzy</td>
-        <td>
-            Użytkownik
-        </td>
-    </tr>
-    <tr>
-        <td>Przepływ zdarzeń</td>
-        <td>
-            <ul>
-                <li>
-                    Użytkownik klika przycisk "Edytuj mecz" na liście aktywnych meczów.
-                </li>
-                <li>
-                    Na ekranie pojawia się okienko z formularzem "Edycji meczu"
-                </li>
-                <li>
-                    Użytkownik dokonuje zmian na wybranych przez siebie polach
-                    <ul> 
-                        <li>
-                            Użytkownik klika przycisk "Zatwierdź".
-                            <ul>
-                                <li>
-                                    Następuje  powrót to listy aktywnych meczów. Na górze strony pojawia się komunikat "Mecz został zmieniony"
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Użytkownik klika przycisk "Anuluj"
-                            <ul>
-                                <li>
-                                    Na ekranie pojawia się pop-up z komuniaktem "Czy na pewno chcesz porzucić zmiany?"
-                                    <ul>
-                                        <li>Użytkownik wybiera "Nie" i wraca do edycji meczu
-                                        </li>
-                                        <li>Użytkownik wybiera "Tak" i następuje przekierowanie na strone z jego aktywnymi meczami
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-    </tr>
-</tbody>
 </table>
-
-
-```
-Version: #1
-Last-modif: 2018/04/17 11:14
-Author: Piotr Aleksander Styczyński
-
-
-Commit-hash: ed5658aa8856fe01322a6b9a3d5e3362965bd90d
-```
+<table>
+    <tbody>
+        <th><b>MATCH_EDIT</b></th>
+        <tr>
+            <td>Nazwa</td>
+            <td>
+                Edycja meczu przez użytkownika
+            </td>
+        </tr>
+        <tr>
+            <td>Krótki opis</td>
+            <td>
+                Użytkownik edytuje już utworzony mecz. Może zmienić jego parametry jak określone w punkcie MATCH.EDIT.1
+            </td>
+        </tr>
+        <tr>
+            <td>Aktorzy</td>
+            <td>
+                Użytkownik
+            </td>
+        </tr>
+        <tr>
+            <td>Przepływ zdarzeń</td>
+            <td>
+                <ul>
+                    <li>
+                        Użytkownik klika przycisk "Edytuj mecz" na liście aktywnych meczów.
+                    </li>
+                    <li>
+                        Na ekranie pojawia się okienko z formularzem "Edycji meczu"
+                    </li>
+                    <li>
+                        Użytkownik dokonuje zmian na wybranych przez siebie polach
+                        <ul> 
+                            <li>
+                                Użytkownik klika przycisk "Zatwierdź".
+                                <ul>
+                                    <li>
+                                        Następuje  powrót to listy aktywnych meczów. Na górze strony pojawia się komunikat "Mecz został zmieniony"
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Użytkownik klika przycisk "Anuluj"
+                                <ul>
+                                    <li>
+                                        Na ekranie pojawia się pop-up z komuniaktem "Czy na pewno chcesz porzucić zmiany?"
+                                        <ul>
+                                            <li>Użytkownik wybiera "Nie" i wraca do edycji meczu
+                                            </li>
+                                            <li>Użytkownik wybiera "Tak" i następuje przekierowanie na strone z jego aktywnymi meczami
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

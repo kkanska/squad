@@ -1,13 +1,37 @@
+# TODO - how to show ip:port as a last message in terminal ???
+
 version: "2"
 
 services:
   db:
+    container_name: "postgis"
     image: mdillon/postgis
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # dla menadzera
+      - "15672:15672" # dla serwera
+    depends_on:
+      - db
 
-  web:
+
+  # Celery worker
+  worker:
+    build: ./web
+    command: celery -A web worker --loglevel=info
+    volumes:
+      - ./web/:/code
+    links:
+      - rabbitmq
+    depends_on:
+      - db
+      - rabbitmq
+
+  web: &web
     container_name: "matches"
     build: ./web
     command: python3 manage.py runserver 0.0.0.0:8000
@@ -17,13 +41,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - rabbitmq
+      - worker
     image: matches
     restart: "on-failure"
 
     networks:
       - default
       - backend
-  
+
 #development containers
   migrate:
     build: ./web
@@ -45,6 +71,16 @@ services:
     image: matches
     restart: on-failure
 
+  add_architect:
+    build: ./web
+    command: >
+      sh -c "export DJANGO_SETTINGS_MODULE=web.settings &&
+             architect partition --module matches.models"
+    depends_on:
+      - db
+      - migrate
+      - make_migrations
+      
 networks:
   backend:
     external: true
