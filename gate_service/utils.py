@@ -96,7 +96,7 @@ def request_service(service, url, method, data):
     req = {'put': lambda kwargs: requests.put(**kwargs),
            'post': lambda kwargs: requests.post(**kwargs),
            'patch': lambda kwargs: requests.patch(**kwargs),
-           'get': lambda kwargs: requests.post(**kwargs),
+           'get': lambda kwargs: requests.get(**kwargs),
            }
 
     kwargs = {'data': json.dumps(data),

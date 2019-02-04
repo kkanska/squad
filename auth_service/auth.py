@@ -27,21 +27,23 @@ def login():
                 }
 
         row = database.execute(
-            'SELECT id FROM user WHERE email = ? and password = ?', (email,password,)
+            'SELECT id FROM user WHERE email = ? and password = ?', (email, password,)
             ).fetchone()
 
-        if row is not None:
-            print("Successfull login")
-            r = requests.get('{}/api/users'.format(USER_ADDR), data=json.dumps({'key1': email}), headers={'content-type': 'application/json'})
-            data['msg'] = "login"
+        if row:
+            print("Successful login")
+            data['msg'] = "Login successful"
             data['id'] = row['id']
             resp = jsonify(data)
             resp.status_code = 200
-        else:
-            data['msg'] = 'error'
-            resp = jsonify(data)
-            resp.status_code = 400
+            return resp
+
+        print("Unsuccessful login")
+        data['msg'] = 'Incorrect login or password'
+        resp = jsonify(data)
+        resp.status_code = 400
         return resp
+
     abort(404)
 
 
@@ -66,33 +68,38 @@ def register():
             'SELECT id FROM user WHERE email = ?', (email,)
             ).fetchone()
 
-        if row is not None:
+        if row:
             print("User already exists")
             resp = jsonify(data)
             resp.status_code = 400
-        else:
-            print('Sending to:')
-            print(USER_ADDR + '/api/users/')
-            r = requests.post(USER_ADDR + '/api/users/', data=json.dumps({'email': email, 'login': login}),
-                           headers={'content-type': 'application/json'})
-            print("Status code = {}".format(r.status_code))
+            return resp
 
-            print(r)
+        print('Sending to:')
+        print(USER_ADDR + '/api/users/')
+        r = requests.post('{}/api/users/'.format(USER_ADDR),
+                          data=json.dumps({'email': email, 'login': login}),
+                          headers={'content-type': 'application/json'})
+        print("Status code = {}".format(r.status_code))
 
-            if r.status_code == 201:
-                database.execute(
-                    'INSERT INTO user (id, email, password) VALUES (?, ?, ?)',
-                    (r.json()['id'], email, password)
-                )
-                database.commit()
-                data['id'] = r.json()['id']
-                resp = jsonify(data)
-                resp.status_code = 202
-            else:
-                resp = jsonify(data)
-                resp.status_code = 400
+        print(r)
+
+        if r.status_code == 201:
+            database.execute(
+                'INSERT INTO user (id, email, password) VALUES (?, ?, ?)',
+                (r.json()['id'], email, password)
+            )
+            database.commit()
+            data['id'] = r.json()['id']
+            resp = jsonify(data)
+            resp.status_code = 202
+            return resp
+
+        resp = jsonify(data)
+        resp.status_code = 400
         return resp
+
     abort(404)
+
 
 @bp.route('/')
 def home():
@@ -111,4 +118,3 @@ def home():
             <p><input type=submit value=Register>
         </form>
     '''
-
