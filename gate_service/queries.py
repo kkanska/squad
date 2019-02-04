@@ -29,7 +29,10 @@ class MatchesQuery(graphene.ObjectType):
 
     def resolve_search_matches(self, info, author=None, date=None, location=None, range=None):
         r = request_service('MATCHES', url='matches/?radius={}&lat={}&lng={}&date={}'
-                            .format(range, location.lat, location.lng, date.timestamp),
+                            .format(range if range else '',
+                                    location.lat if location else '',
+                                    location.lng if location else '',
+                                    date.timestamp if date else ''),
                             method='get', data={})
         if r.status_code != 200:
             return []

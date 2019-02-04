@@ -1,20 +1,31 @@
-query Query {
-  authorizeUser(email: "piotrek@gmail.com", hash: "p") {
+mutation register {
+  actions {
+    registerUser(email: "kasia@example.com", login: "kasia", hash: "psswrd") {
+      userID
+      login
+      message
+      status
+    }
+  }
+}
+
+query authorize {
+  authorizeUser(email: "kasia@example.com", hash: "psswrd", idspecs: {}) {
     login
     email
     userID
     profile {
       avatarURL
-      description
     }
   }
 }
 
-query Query {
+query get_settings {
   settings {
     getSettings(user: {userID: 1}) {
       defaultDiscipline {
         name
+        iconName
       }
       defaultLocation {
         lat
@@ -25,7 +36,7 @@ query Query {
   }
 }
 
-query Query {
+query get_matches {
   matches {
     getActiveMatches(user: {userID: 1}) {
       matchID
@@ -56,9 +67,9 @@ query Query {
   }
 }
 
-query Query {
+query search_matches {
     matches {
-      searchMatches(location: {lng: 52.215, lat: 20.97}) {
+      searchMatches(location: {lng: 52.0, lat: 21.0}) {
         matchID
         title
         location {
@@ -87,18 +98,7 @@ query Query {
     }
 }
 
-mutation Mutation {
-  actions {
-    registerUser(email: "piotrek@example.com", login: "piotrek", hash: "psswrd") {
-      user {
-        login
-        userID
-      }
-    }
-  }
-}
-
-mutation Mutation {
+mutation join_match {
   actions {
     joinMatch(user: {userID: 1}, matchID: 1) {
       message
@@ -106,3 +106,4 @@ mutation Mutation {
     }
   }
 }
+

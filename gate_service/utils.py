@@ -41,16 +41,17 @@ def get_usr_sett_by_id(usr_id):
     if not usr:
         return None
 
-    location = Location(lat=usr['sett_default_lat'],
-                        lng=usr['sett_default_lng'])
+    location = Location(lat=usr.get('sett_default_lat', 20.9799491),
+                        lng=usr.get('sett_default_lng', 52.2118767))
 
-    discipline = Category(name=usr['sett_category_name'],
-                          icon_name=usr['sett_category_icon'])
+    category_name = CategoryName.get(usr.get('sett_category_name', 0))
+    discipline = Category(name=category_name,
+                          icon_name=usr.get('sett_category_icon', None))
 
-    return UserSettings(default_range=usr['sett_default_range'],
+    return UserSettings(default_range=usr.get('sett_default_range', 1500.),
                         default_location=location,
                         default_discipline=discipline,
-                        timestamp=usr['sett_timestamp'])
+                        timestamp=usr.get('sett_timestamp', None))
 
 
 def get_match_from_data(match_data):
@@ -109,5 +110,6 @@ def request_service(service, url, method, data):
         kwargs['url'] = '{}/{}'.format(config.USER_ADDR, url)
     else:
         kwargs['url'] = '{}/{}'.format(config.MATCHES_ADDR, url)
+    print('Sending request to {}'.format(kwargs['url']))
 
     return req[method](kwargs)
