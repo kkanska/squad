@@ -132,17 +132,16 @@ class InvitesList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class NewMatchesList(ListView):
     template_name = 'matches/new_matches_list.html'
     model = Match
     paginate_by = 10
-    queryset = Match.objects.all().order_by('date', '-location')
+    queryset = Match.objects.all().order_by('date', 'minute_start', 'minute_end', '-location')
 
 
-# from dateutil.parser import parse
-
-class GenerateRandomMatchesView(FormView):
-    template_name = 'matches/generate_random_matches.html'
+class GenerateNewMatchesView(FormView):
+    template_name = 'matches/add_new_matches.html'
     form_class = GenerateRandomMatchesForm
 
     def form_valid(self, form):
@@ -182,9 +181,11 @@ class GenerateRandomMatchesView(FormView):
         for match in all_matches:
             create_match.delay(match)
 
+        messages.success(self.request, 'Our workers are adding your new matches to our database using RabbitMQ! Please wait a moment and refresh this page. :-D ')
+
         return redirect('new_matches_list')
 
 
-def clear_db(request):
+def remove_matches(request):
     Match.objects.all().delete()
     return redirect('new_matches_list')
