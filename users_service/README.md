@@ -1,4 +1,4 @@
-# Squad users service
+# Users Microservice
 
 Microservice responsible for handling user data, eg. preferances, settings, usernames etc.
 
@@ -23,11 +23,6 @@ That's all!
 * [Flask](http://flask.pocoo.org/) - Web microframework
 * [Redis](https://redis.io/) - The fastest database engine on this planet
 * [redis-py](https://github.com/andymccurdy/redis-py) - Redis Python Client
-
-
-## Authors
-
-* **Stanisław Giziński**
 
 ## License
 
