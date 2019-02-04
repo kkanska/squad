@@ -1,10 +1,14 @@
 # Gate Microservice
 
-```graphql
+## Run
 
-#
-# GATE API
-#
+```
+docker-compose up --scale web=3
+```
+
+## API
+
+```graphql
 
 # User profile description
 type UserProfile {

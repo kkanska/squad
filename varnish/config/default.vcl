@@ -3,18 +3,18 @@ vcl 4.0;
 import directors;
 
 backend server1 {
-    .host = "gate";
+    .host = "gate1";
     .port = "4000";
 }
 
 backend server2 {
-    .host = "gate";
-    .port = "4001";
+    .host = "gate2";
+    .port = "4000";
 }
 
 backend server3 {
-    .host = "gate";
-    .port = "4002";
+    .host = "gate3";
+    .port = "4000";
 }
 
 sub vcl_backend_response {

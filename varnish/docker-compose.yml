@@ -12,7 +12,9 @@ services:
      - backend
     restart: "on-failure"
     external_links:
-     - gate:gate
+     - gate1:gateservice_web_1
+     - gate2:gateservice_web_2
+     - gate3:gateservice_web_3
 
 networks:
   backend:
