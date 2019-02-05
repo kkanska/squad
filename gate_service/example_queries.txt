@@ -69,7 +69,7 @@ query get_matches {
 
 query search_matches {
     matches {
-      searchMatches(location: {lng: 52.0, lat: 21.0}) {
+      searchMatches(location: {lng: 21.0, lat: 52.0}) {
         matchID
         title
         location {
