@@ -1,12 +1,24 @@
 import time
+import datetime
 import requests
 import json
 import config
 from models import *
 
 
+DATE_FORMAT = '%Y-%m-%d'
+
+
+def datetime_to_str(dt):
+    return dt.strftime(DATE_FORMAT)
+
+
 def str_timestamp():
-    return str(time.time())
+    return datetime_to_str(datetime.datetime.now())
+
+
+def timestamp_to_date(timestamp):
+    return datetime_to_str(datetime.datetime.utcfromtimestamp(timestamp))
 
 
 def str_to_dict(s):
@@ -54,24 +66,31 @@ def get_usr_sett_by_id(usr_id):
                         timestamp=usr.get('sett_timestamp', None))
 
 
+def postgis_to_location(str):
+    # format 'SRID=4326;POINT (21 52)'
+    parts = str.split(' ')
+    return Location(lat=float(parts[2][:-1]),
+                    lng=float(parts[1][1:]))
+
+
 def get_match_from_data(match_data):
     players = []
-    for player_id in match_data['players']:
+    for player_id in match_data.get('players', []):
         player = get_usr_by_id(player_id)
         if player:
             players.append(player)
 
     invited = []
-    for player_id in match_data['invited']:
+    for player_id in match_data.get('invited', []):
         player = get_usr_by_id(player_id)
         if player:
             invited.append(player)
 
     return Match(match_id=match_data['id'], date=Date(timestamp=match_data['date']),
-                 location=Location(lat=match_data['location_lat'], lng=match_data['location_lng']),
+                 location=postgis_to_location(match_data['location']),
                  author=get_usr_by_id(match_data['author_id']),
                  administrator=get_usr_by_id(match_data['author_id']),
-                 category=Category(name=CategoryName(match_data['category'])),
+                 category=Category(name=CategoryName(match_data.get('category', 0))),
                  players=players, invited=invited)
 
 
