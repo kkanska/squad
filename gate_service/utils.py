@@ -1,4 +1,3 @@
-import time
 import datetime
 import requests
 import json
@@ -67,7 +66,7 @@ def get_usr_sett_by_id(usr_id):
 
 
 def postgis_to_location(str):
-    # format 'SRID=4326;POINT (21 52)'
+    # format 'SRID=4326;POINT (21.12 52.98294)'
     parts = str.split(' ')
     return Location(lat=float(parts[2][:-1]),
                     lng=float(parts[1][1:]))
