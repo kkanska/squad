@@ -38,6 +38,14 @@ class CategoryName(graphene.Enum):
     FOOTBALL = 0
     VOLLEYBALL = 1
 
+    @property
+    def description(self):
+        if self == CategoryName.FOOTBALL:
+            return 'Football'
+        if self == CategoryName.VOLLEYBALL:
+            return 'Volleyball'
+        return 'Other sport category'
+
 
 class CategoryFields(object):
     name = graphene.Field(CategoryName)

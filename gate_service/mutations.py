@@ -100,7 +100,7 @@ class RegisterUser(graphene.Mutation):
                 'password': hash,
                 }
 
-        r = request_service('AUTH', url='auth/register/', method='post', data=usr_data)
+        r = request_service('AUTH', url='auth/register', method='post', data=usr_data)
         if r.status_code != 202:
             return RegisterUser(status=False)
 

@@ -1,12 +1,23 @@
-import time
+import datetime
 import requests
 import json
 import config
 from models import *
 
 
+DATE_FORMAT = '%Y-%m-%d'
+
+
+def datetime_to_str(dt):
+    return dt.strftime(DATE_FORMAT)
+
+
 def str_timestamp():
-    return str(time.time())
+    return datetime_to_str(datetime.datetime.now())
+
+
+def timestamp_to_date(timestamp):
+    return datetime_to_str(datetime.datetime.utcfromtimestamp(timestamp))
 
 
 def str_to_dict(s):
@@ -41,36 +52,44 @@ def get_usr_sett_by_id(usr_id):
     if not usr:
         return None
 
-    location = Location(lat=usr['sett_default_lat'],
-                        lng=usr['sett_default_lng'])
+    location = Location(lat=usr.get('sett_default_lat', 20.9799491),
+                        lng=usr.get('sett_default_lng', 52.2118767))
 
-    discipline = Category(name=usr['sett_category_name'],
-                          icon_name=usr['sett_category_icon'])
+    category_name = CategoryName.get(usr.get('sett_category_name', 0))
+    discipline = Category(name=category_name,
+                          icon_name=usr.get('sett_category_icon', None))
 
-    return UserSettings(default_range=usr['sett_default_range'],
+    return UserSettings(default_range=usr.get('sett_default_range', 1500.),
                         default_location=location,
                         default_discipline=discipline,
-                        timestamp=usr['sett_timestamp'])
+                        timestamp=usr.get('sett_timestamp', None))
+
+
+def postgis_to_location(str):
+    # format 'SRID=4326;POINT (21.12 52.98294)'
+    parts = str.split(' ')
+    return Location(lat=float(parts[2][:-1]),
+                    lng=float(parts[1][1:]))
 
 
 def get_match_from_data(match_data):
     players = []
-    for player_id in match_data['players']:
+    for player_id in match_data.get('players', []):
         player = get_usr_by_id(player_id)
         if player:
             players.append(player)
 
     invited = []
-    for player_id in match_data['invited']:
+    for player_id in match_data.get('invited', []):
         player = get_usr_by_id(player_id)
         if player:
             invited.append(player)
 
     return Match(match_id=match_data['id'], date=Date(timestamp=match_data['date']),
-                 location=Location(lat=match_data['location_lat'], lng=match_data['location_lng']),
+                 location=postgis_to_location(match_data['location']),
                  author=get_usr_by_id(match_data['author_id']),
                  administrator=get_usr_by_id(match_data['author_id']),
-                 category=Category(name=CategoryName(match_data['category'])),
+                 category=Category(name=CategoryName(match_data.get('category', 0))),
                  players=players, invited=invited)
 
 
@@ -109,5 +128,6 @@ def request_service(service, url, method, data):
         kwargs['url'] = '{}/{}'.format(config.USER_ADDR, url)
     else:
         kwargs['url'] = '{}/{}'.format(config.MATCHES_ADDR, url)
+    print('Sending request to {}'.format(kwargs['url']))
 
     return req[method](kwargs)
